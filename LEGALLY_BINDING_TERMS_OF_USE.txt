@@ -1,0 +1,3 @@
+By using this information, you agree to AlphaGenome Output Terms of Use found at http://deepmind.google.com/science/alphagenome/output-terms
+
+This applies to every file listed in NOTICE-AlphaGenome.md: the score tables computed with AlphaGenome, and the files derived from them. A copy of the AlphaGenome Output Terms of Use is in licenses/AlphaGenome-Output-Terms-of-Use.pdf.

@@ -1,0 +1,69 @@
+{
+ "name": "unified-t1-backbone-borzoi-pertrack-ism",
+ "overrides": [
+  "ism_mode=zero-replace",
+  "ism_shuffles=1"
+ ],
+ "config": {
+  "abs_map": true,
+  "anchor": "single-tss",
+  "anchor_agg": null,
+  "assay": "cage",
+  "bin_abs_order": "after",
+  "bin_overlap": "any",
+  "cell_type": "k562",
+  "enh_agg": "point",
+  "enh_span": null,
+  "exon_source": "all-transcripts",
+  "gaussian_sigma": null,
+  "gaussian_truncate": null,
+  "gencode": "v50",
+  "inverse_transform": true,
+  "ism_inner_mean": [],
+  "ism_mode": "zero-replace",
+  "ism_shuffles": 1,
+  "ism_statistic": "abs_mean_diff",
+  "ism_window": 2000,
+  "log_scalar": false,
+  "mean_subtract": true,
+  "method": "ism",
+  "model": "borzoi",
+  "normalise": "none",
+  "out_of_window": "zero",
+  "pair_filters": {
+   "require_gene_in_annotation": true
+  },
+  "readout_anchor": "window-centre",
+  "region": "tss",
+  "replicate_abs_order": "before",
+  "replicates": 4,
+  "screen": "gschwind",
+  "seed": 0,
+  "strand_mask": "off",
+  "track_abs_order": "before",
+  "track_agg": "mean",
+  "tss_major": false,
+  "tss_major_assay": null,
+  "tss_major_cell_type": null,
+  "tss_width": 384,
+  "tta": "none",
+  "tta_abs_order": "before",
+  "tta_shift_bp": null
+ },
+ "runtime": {
+  "backend": "borzoi-pytorch",
+  "precision": {
+   "cudnn_allow_tf32_default": true,
+   "gpu_capability": "8.9",
+   "gpu_name": "NVIDIA GeForce RTX 4070 SUPER",
+   "matmul_allow_tf32_default": false,
+   "tf32_capable": true,
+   "tf32_pinned_off": true
+  },
+  "device": "cuda"
+ },
+ "table": {
+  "pairs": 10353,
+  "pairs_in_window": 3988
+ }
+}

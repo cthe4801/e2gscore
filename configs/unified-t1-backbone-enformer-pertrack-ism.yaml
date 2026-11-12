@@ -1,0 +1,97 @@
+# `track_abs_order: before` and `strand_mask: "off"` are the ISM setting common
+# to every trunk.
+_name: unified-t1-backbone-enformer-pertrack-ism
+_protocol: unified-t1
+_comment: >-
+  Enformer ISM arm of the unified tier-1 protocol with per-track draws,
+  scored on the Gschwind K562 CRISPRi screen.
+
+  An enhancer's score is the mean absolute change in K562 CAGE at the gene's
+  canonical TSS when the 2 kb window over the enhancer is dinucleotide
+  shuffled, averaged over ten shuffles.
+
+  `track_abs_order: before` is a widening for measurement, not a
+  correction: it keeps a per-track axis in the persisted draws, from which
+  both orders are recoverable at no extra cost, and it reproduces `after`
+  exactly by reduction. `after` is what the published arms take, and no
+  published arm declares the key at all.
+
+
+model: enformer
+replicates: 1
+replicate_abs_order: before       # inert at replicates=1
+
+screen: gschwind
+anchor: single-tss
+tss_major: false                  # Canonical TSS. `true` would anchor on the
+                                  # argmax of the model's own predicted
+                                  # CAGE, letting it pick its own readout.
+tss_major_assay: null
+tss_major_cell_type: null
+pair_filters: {require_gene_in_annotation: True}
+
+assay: cage                       # Enformer has no RNA-seq head, so CAGE is
+                                  # the only assay all three trunks share.
+cell_type: k562
+strand_mask: "off"                # The common ISM setting across trunks; on
+                                  # Enformer it is inert, since these targets
+                                  # carry no strand column. The two K562 CAGE
+                                  # tracks kept here are two libraries, one
+                                  # FANTOM and one ENCODE replicate group, not
+                                  # two strands, so `ism_inner_mean:
+                                  # ['strand']` would be a misnomer.
+                                  #
+                                  # Quote it: bare `off` is boolean False
+                                  # under YAML 1.1, and the validator then
+                                  # rejects `strand_mask=False is not one of
+                                  # (auto, on, off)`.
+region: tss
+tss_width: 384                    # three 128 bp output bins; the 640 bp
+                                  # alternative costs another pass.
+readout_anchor: window-centre
+bin_overlap: any
+track_agg: mean                   # live here: `track_abs_order: before` keeps
+                                  # the two tracks apart until this reduction.
+log_scalar: false                 # avoids the warning that `true` with
+                                  # inverse_transform=false raises on trunks
+                                  # whose output scalar is squashed.
+inverse_transform: false
+
+method: ism                       # the one key this arm varies from the
+                                  # gradient backbone.
+bin_abs_order: after
+track_abs_order: before           # The only setting that keeps a per-track
+                                  # axis in the persisted draws, and a strict
+                                  # superset: `before` is |.| then the mean
+                                  # over tracks, `after` is the mean then |.|,
+                                  # so both are recoverable from per-track
+                                  # draws, whereas `after` collapses the
+                                  # tracks before the draws are written.
+                                  # Costs the same either way. The validator
+                                  # accepts it only on the ISM path.
+
+abs_map: true
+enh_agg: point                    # Forced by method=ism: the perturbed window
+                                  # is the enhancer window, so there is no map
+                                  # left to re-pool. The validator refuses
+                                  # anything else.
+enh_span: null                    # forced null unless enh_agg is sum/mean/max.
+gaussian_sigma: null              # forced null away from enh_agg=gaussian.
+gaussian_truncate: null           # forced null away from enh_agg=gaussian.
+normalise: none                   # Forced by method=ism: the validator
+                                  # refuses `global`, because the ISM
+                                  # statistic is already comparable across
+                                  # genes.
+anchor_agg: null                  # forced null: single-tss gives one anchor.
+
+tta: none
+tta_shift_bp: null
+tta_abs_order: before             # inert at tta=none
+
+ism_window: 2000
+ism_mode: dinuc-shuffle
+ism_shuffles: 10
+ism_statistic: abs_mean_diff
+ism_inner_mean: []
+
+seed: 0

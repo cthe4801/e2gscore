@@ -1,0 +1,82 @@
+_name: unified-t1-backbone-borzoi
+_protocol: unified-t1
+_comment: >-
+  Unified tier-1 protocol, Borzoi backbone arm, for "Benchmarking the
+  Protocol, Not Just the Model". Scored on the gschwind screen, the main
+  K562 CRISPRi benchmark.
+
+  Input gradients of the K562 CAGE readout summed over a 384 bp window at a
+  single canonical TSS, Gaussian-weighted across each enhancer (s.d. 300 bp,
+  truncate 4) and normalised by the mean absolute input gradient, with
+  out-of-window enhancers scored zero and no augmentation.
+
+  This is the reference file the sibling tier-1 arms vary, each isolating a
+  single protocol axis rather than a factorial. CAGE is the backbone assay
+  for model coverage rather than popularity, being the only assay all three
+  trunks expose; Enformer has no RNA-seq head.
+
+
+model: borzoi
+replicates: 4
+replicate_abs_order: after        # Signed replicate maps are averaged and the
+                                  # absolute value taken once, which is both
+                                  # the published Borzoi order and the better
+                                  # scoring one. One run emits both orders as
+                                  # free-grid columns, so the other reading
+                                  # needs no re-run.
+
+screen: gschwind
+anchor: single-tss
+tss_major: false                  # `true` takes the major TSS as the argmax of
+                                  # the model's own predicted CAGE, letting the
+                                  # model choose where it is evaluated.
+tss_major_assay: null
+tss_major_cell_type: null
+pair_filters: {require_gene_in_annotation: True}
+
+assay: cage
+cell_type: k562
+strand_mask: auto
+region: tss
+tss_width: 384                    # Enformer's and AlphaGenome's three-bin
+                                  # readout width, so the three trunks read the
+                                  # same span; Borzoi's own default is 256.
+readout_anchor: window-centre   # Where the published protocols place the
+                                  # readout bins.
+bin_overlap: any
+track_agg: mean                   # Inert under normalise=global: it enters as
+                                  # a constant track-count factor.
+log_scalar: false                 # Inert for gradients under normalise=global.
+                                  # The log contributes a per-pair constant
+                                  # factor, which the global normaliser then
+                                  # divides out.
+inverse_transform: true           # Borzoi predicts in a squashed output space,
+                                  # so the gradient has to be taken after
+                                  # un-squashing. Correctness, not a choice.
+
+method: gradient
+bin_abs_order: after
+track_abs_order: after            # Inert on the gradient path; ISM only.
+
+abs_map: true
+enh_agg: gaussian
+enh_span: null                    # Unused at enh_agg=gaussian: the span comes
+                                  # from gaussian_sigma and gaussian_truncate.
+gaussian_sigma: 300
+gaussian_truncate: 4
+normalise: global                 # The convention for Borzoi and AlphaGenome;
+                                  # Enformer's published protocol is `none`.
+anchor_agg: null                  # Inert at anchor=single-tss; becomes live as
+                                  # a mean at anchor=each-tss.
+
+tta: none
+tta_shift_bp: null
+tta_abs_order: before             # Inert at tta=none.
+
+ism_window: 2000
+ism_mode: dinuc-shuffle
+ism_shuffles: 10
+ism_statistic: abs_mean_diff
+ism_inner_mean: []
+
+seed: 0

@@ -1,0 +1,73 @@
+_name: linder2025-borzoi-gradient-flat2kb-gasperini2019-linder-authors
+_protocol: linder2025
+_comment: >-
+  Linder et al. (2025) reproduction on the Gasperini et al. (2019) pair table
+  and gene annotation the authors supplied (inputs/linder2025-authors/),
+  loaded as shipped. Borzoi, four replicates (replicate_abs_order after),
+  gene-midpoint anchor, K562 RNA-seq summed over exon bins with the log
+  applied last (log_scalar true), reverse-complement augmentation (tta rc,
+  absolute value after averaging the two orientations), out-of-window pairs
+  dropped. Input gradients times input, pooled by the mean of the map over a
+  2,000 bp window centred on the enhancer, normalise global.
+
+  Gene-midpoint anchor, K562 RNA-seq summed over exon bins, log applied last,
+  globally normalised, four replicates averaged at the score level.
+
+  Identical to linder2025-borzoi-gradient-gasperini2019-linder in every
+  parameter except the map-to-pair reduction, so the two runs isolate that
+  reduction from everything upstream of it. The released code sums over the
+  window where this file takes the mean; the window is a constant 2,000 bp
+  about the element midpoint, so the two differ by the global factor 1/2000 and
+  auPRC is rank-based.
+
+cell_type: k562
+strand_mask: auto
+bin_overlap: any
+abs_map: true
+tta_shift_bp: null
+model: borzoi
+replicates: 4
+anchor: gene-midpoint
+tss_major: false
+tss_major_assay: null
+assay: rnaseq
+region: exons
+tss_width: null
+readout_anchor: window-centre
+track_agg: mean
+inverse_transform: true
+log_scalar: true
+anchor_agg: null
+screen: gasperini2019-linder-authors
+pair_filters: {}
+method: gradient
+enh_agg: mean
+enh_span: 2000   # Not a typo for the ISM arms' 2,048; both are as released.
+gaussian_sigma: null
+gaussian_truncate: null
+normalise: global
+tta: rc
+
+tss_major_cell_type: null
+bin_abs_order: after
+track_abs_order: after
+tta_abs_order: after
+replicate_abs_order: after
+
+# tta_abs_order: the released code loops both orientations on the gradient
+#   path and accumulates them into one signed map, taking the absolute value
+#   once, afterwards. That ordering is `after`, not `before`.
+
+# The authors' own table and annotation. This file differs from the same
+# protocol on the reconstructed `gasperini2019-linder` table in these four keys and nothing else:
+#   screen        the pair table as supplied, loaded as shipped;
+#   pair_filters  {}: the supplied table is already capped at 262,144 bp and
+#                 already carries the paper's minimum-elements rule, so
+#                 re-applying either would drop pairs the authors scored;
+#   gencode       linder2025, the gene annotation supplied with the tables;
+#   exon_source   all-transcripts of that annotation, which is how the
+#                 authors' gradient script reads it.
+gencode: linder2025
+exon_source: all-transcripts
+
+seed: 0

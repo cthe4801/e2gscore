@@ -1,0 +1,27 @@
+{
+  "fulco2019": {
+    "L1_vs_fig2b": 23,
+    "dropped": {
+      "underpowered_deg_negative": 137
+    },
+    "negatives": 4583,
+    "path": "inputs/fulco2019.hg38.tsv",
+    "positives": 194,
+    "rows": 4777,
+    "tss_source": "refseq_curated"
+  },
+  "gasperini2019": {
+    "L1_vs_fig2b": 116,
+    "dropped": {
+      "gene_id_not_in_gencode_v32": 201,
+      "liftover": 18,
+      "no_empirical_p": 38454,
+      "promoter_overlap": 1521
+    },
+    "negatives": 37948,
+    "path": "inputs/gasperini2019.hg38.tsv",
+    "positives": 634,
+    "rows": 38582,
+    "tss_source": "gasperini"
+  }
+}

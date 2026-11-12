@@ -1,0 +1,48 @@
+{
+ "_what": "Avsec et al. (2021) Fig. 2b per-bin cohort composition (published positives and negatives per distance bin), the reference Supplementary Fig. 1a compares the reconstructed cohorts with",
+ "_source": "Avsec et al. (2021), Nature Methods 18:1196, Fig. 2b: published positives and negatives per distance bin",
+ "bin_edges_bp": [
+  0,
+  3000,
+  12500,
+  34500,
+  131000
+ ],
+ "bin_rule": "[lo, hi)",
+ "bin_labels": [
+  "0-3 kb",
+  "3-12.5 kb",
+  "12.5-34.5 kb",
+  "34.5-131 kb"
+ ],
+ "screens": {
+  "fulco2019": {
+   "positives": [
+    52,
+    48,
+    40,
+    26
+   ],
+   "negatives": [
+    5,
+    66,
+    182,
+    879
+   ]
+  },
+  "gasperini2019": {
+   "positives": [
+    28,
+    120,
+    129,
+    193
+   ],
+   "negatives": [
+    97,
+    455,
+    1119,
+    4614
+   ]
+  }
+ }
+}

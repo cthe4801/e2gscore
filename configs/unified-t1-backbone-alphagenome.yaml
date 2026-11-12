@@ -1,0 +1,72 @@
+_name: unified-t1-backbone-alphagenome
+_protocol: unified-t1
+_comment: >-
+  Unified protocol, tier-1 backbone, AlphaGenome arm. The cross-trunk cell of
+  the protocol comparison: every protocol parameter is held fixed and only the
+  trunk changes. Scored on the Gschwind K562 CRISPRi screen.
+
+  Protocol: input gradients; single canonical TSS anchor; K562 CAGE summed
+  over a 384 bp readout window; Gaussian enhancer weighting (s.d. 300,
+  truncate 4); normalised by the mean absolute gradient over the input;
+  out-of-window enhancers scored zero; no augmentation. Every tier-1 run
+  varies exactly one parameter from this file, never a factorial.
+
+  Every value here matches the Enformer backbone; only `model` differs. The
+  Borzoi backbone additionally sets replicates=4 and inverse_transform=true.
+  CAGE is the backbone assay for trunk coverage, not popularity: Enformer has
+  no RNA-seq head, so it is the only assay all three trunks can be scored on.
+
+
+model: alphagenome
+replicates: 1
+replicate_abs_order: before       # inert at replicates=1; live on Borzoi
+
+screen: gschwind                  # TIER 1 (held fixed)
+anchor: single-tss                # TIER 1
+tss_major: false                  # TIER 1. `true` is the tier-1 variation,
+                                  # and it is circular: the major TSS is the
+                                  # argmax of the model's own predicted CAGE.
+tss_major_assay: null
+tss_major_cell_type: null
+pair_filters: {require_gene_in_annotation: True}
+
+assay: cage                       # TIER 1
+cell_type: k562                   # TIER 1
+strand_mask: auto
+region: tss                       # TIER 1
+tss_width: 384                    # TIER 2 (needs its own pass). 640 bp is
+                                  # the tier-1 variation.
+readout_anchor: window-centre   # inert at anchor=single-tss: the window
+                                  # centre is the gene's own TSS.
+bin_overlap: any
+track_agg: mean                   # inert under normalise=global: mean and
+                                  # sum differ by a constant factor.
+log_scalar: false                 # inert for gradients under normalise=global
+inverse_transform: false          # forced: AlphaGenome does not predict in a
+                                  # squashed space, so `true` is refused.
+
+method: gradient
+bin_abs_order: after
+track_abs_order: after            # `before` is ism-only; refused here.
+
+abs_map: true
+enh_agg: gaussian                 # TIER 2; free to re-pool, so swept vs `sum`
+enh_span: null                    # forced: only sum/mean/max take a span
+gaussian_sigma: 300
+gaussian_truncate: 4
+normalise: global                 # TIER 2, free to re-pool. `none` is the
+                                  # tier-1 variation and the convention in
+                                  # Enformer's own published protocol.
+anchor_agg: null                  # forced null at anchor=single-tss
+
+tta: none
+tta_shift_bp: null
+tta_abs_order: before             # inert at tta=none
+
+ism_window: 2000
+ism_mode: dinuc-shuffle
+ism_shuffles: 10
+ism_statistic: abs_mean_diff
+ism_inner_mean: []
+
+seed: 0

@@ -1,0 +1,52 @@
+_name: unified-t1-S2n-borzoi-single-tss-logscalar-none-rafter
+_protocol: unified-t1
+_comment: >-
+  Borzoi CAGE@TSS, single-TSS anchor, gene-readout normalisation only
+  (log_scalar true, normalise none), the signed replicate maps averaged before
+  the absolute value is taken (replicate_abs_order after). The
+  unnormalised-map Borzoi CAGE cell of the cross-gene normalisation figure. A
+  file rather than backbone + --set, because `--set normalise=none` coerces to
+  null.
+abs_map: true
+anchor: single-tss
+anchor_agg: null
+assay: cage
+bin_abs_order: after
+bin_overlap: any
+cell_type: k562
+enh_agg: gaussian
+enh_span: null
+exon_source: all-transcripts
+gaussian_sigma: 300
+gaussian_truncate: 4
+gencode: v50
+inverse_transform: true
+ism_inner_mean: []
+ism_mode: dinuc-shuffle
+ism_shuffles: 10
+ism_statistic: abs_mean_diff
+ism_window: 2000
+log_scalar: true
+mean_subtract: true
+method: gradient
+model: borzoi
+normalise: none
+out_of_window: zero
+pair_filters:
+  require_gene_in_annotation: true
+readout_anchor: window-centre
+region: tss
+replicate_abs_order: after
+replicates: 4
+screen: gschwind
+seed: 0
+strand_mask: auto
+track_abs_order: after
+track_agg: mean
+tss_major: false
+tss_major_assay: null
+tss_major_cell_type: null
+tss_width: 384
+tta: none
+tta_abs_order: before
+tta_shift_bp: null

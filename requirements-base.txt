@@ -1,0 +1,5 @@
+# Base: self-test, print-config, and every statistic recomputed from the shipped scores.
+# No GPU, no model weights, no downloads beyond these two packages.
+#   python3 -m venv .venv && .venv/bin/pip install -r requirements-base.txt
+numpy>=1.17
+PyYAML>=5.1

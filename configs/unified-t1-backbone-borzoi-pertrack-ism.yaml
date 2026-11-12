@@ -1,0 +1,86 @@
+_name: unified-t1-backbone-borzoi-pertrack-ism
+_protocol: unified-t1
+_comment: >-
+  Unified tier-1 protocol, Borzoi per-track ISM arm, for "Benchmarking the
+  Protocol, Not Just the Model". Scored on the gschwind screen, the main K562
+  CRISPRi benchmark.
+
+  In-silico mutagenesis of the K562 CAGE readout summed over a 384 bp window
+  at a single canonical TSS: each enhancer's 2 kb window is dinucleotide
+  shuffled ten times and scored by the mean absolute change in that readout,
+  with out-of-window enhancers scored zero and no augmentation.
+
+  Apart from its name, this file resolves to exactly the same parameters as
+  the Borzoi ISM arm; the name records what strand_mask and track_abs_order
+  buy here, which is draws that keep their per-track axis. Running the two
+  files differs only in the name the resulting scores are filed under.
+
+
+model: borzoi
+replicates: 4
+replicate_abs_order: before       # Forced: validation refuses any other value
+                                  # at method=ism, where ism_inner_mean asks
+                                  # the same question.
+
+screen: gschwind
+anchor: single-tss
+tss_major: false                  # `true` takes the major TSS as the argmax of
+                                  # the model's own predicted CAGE, letting the
+                                  # model choose where it is evaluated.
+tss_major_assay: null
+tss_major_cell_type: null
+pair_filters: {require_gene_in_annotation: True}
+
+assay: cage
+cell_type: k562
+strand_mask: "off"                # Quoted: bare `off` is boolean false under
+                                  # YAML 1.1, and validation then rejects it.
+                                  # Leaving the strand tracks unmasked keeps
+                                  # more than one entry on the stored track
+                                  # axis, which is what makes track_agg and
+                                  # track_abs_order real choices, not no-ops.
+region: tss
+tss_width: 384                    # Enformer's and AlphaGenome's three-bin
+                                  # readout width, so the three trunks read the
+                                  # same span; Borzoi's own default is 256.
+readout_anchor: window-centre   # Where the published protocols place the
+                                  # readout bins.
+bin_overlap: any
+track_agg: mean
+log_scalar: false
+inverse_transform: true           # Borzoi predicts in a squashed output space,
+                                  # so the readout is un-squashed before it is
+                                  # scored. Correctness, not a choice.
+
+method: ism
+bin_abs_order: after
+track_abs_order: before           # The only setting that keeps a per-track
+                                  # axis in the stored draws, from which both
+                                  # orders are recoverable; `after` collapses
+                                  # the tracks before they are written and the
+                                  # choice is gone for good.
+
+abs_map: true
+enh_agg: point                    # Forced at method=ism: the perturbed window
+                                  # is the enhancer window, so there is no map
+                                  # left to re-pool.
+enh_span: null                    # Inert at enh_agg=point.
+gaussian_sigma: null              # Meaningful only at enh_agg=gaussian.
+gaussian_truncate: null           # Meaningful only at enh_agg=gaussian.
+normalise: none                   # Forced at method=ism: the ISM statistic is
+                                  # already comparable across genes, so no
+                                  # global normaliser is applied.
+anchor_agg: null                  # Inert at anchor=single-tss; becomes live as
+                                  # a mean at anchor=each-tss.
+
+tta: none
+tta_shift_bp: null
+tta_abs_order: before             # Inert at tta=none.
+
+ism_window: 2000
+ism_mode: dinuc-shuffle
+ism_shuffles: 10
+ism_statistic: abs_mean_diff
+ism_inner_mean: []
+
+seed: 0

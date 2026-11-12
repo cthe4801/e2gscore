@@ -1,0 +1,19 @@
+# Enformer backend: scoring from sequence. Tested on Python 3.9.
+#   python3.9 -m venv .venv-enformer
+#   .venv-enformer/bin/pip install -r requirements-enformer.txt
+#
+# Keep this environment SEPARATE from the Borzoi one. This file pins
+# transformers==4.56.2 while borzoi-pytorch needs >=4.57.6; installing both
+# leaves Borzoi with the older transformers and raises a torch "Cannot copy out
+# of meta tensor" error that looks like a hardware fault.
+#
+# Weights download automatically from the HuggingFace Hub
+# (EleutherAI/enformer-official-rough). No manual step.
+numpy>=1.17
+PyYAML>=5.1
+pyfaidx>=0.8.1
+torch==2.7.1
+enformer-pytorch==0.8.10
+transformers==4.56.2
+huggingface_hub==0.36.2
+einops==0.8.2

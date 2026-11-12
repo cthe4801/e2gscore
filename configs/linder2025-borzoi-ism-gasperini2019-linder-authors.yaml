@@ -1,0 +1,77 @@
+_name: linder2025-borzoi-ism-gasperini2019-linder-authors
+_protocol: linder2025
+_comment: >-
+  Linder et al. (2025) reproduction on the Gasperini et al. (2019) pair table
+  and gene annotation the authors supplied (inputs/linder2025-authors/),
+  loaded as shipped. Borzoi, four replicates (replicate_abs_order before),
+  gene-midpoint anchor, K562 RNA-seq summed over exon bins with the log
+  applied last (log_scalar true), reverse-complement augmentation (tta rc,
+  absolute value before averaging the two orientations), out-of-window pairs
+  dropped. In-silico mutagenesis: 16 dinuc-shuffle draws of a 2,048 bp window
+  over each enhancer, the response averaged over strands before the absolute
+  value (ism_inner_mean strand), statistic abs_mean_diff. The paper's ISM bars
+  read the signed statistic of the authors' released code (signed_mean),
+  reduced from the run's stored draws (--ism-draws) by
+  scripts/ism_statistic_tables.py.
+
+  A 2 kb dinucleotide shuffle at the enhancer, 16 shuffles x forward/reverse x
+  4 replicates = 128 passes; signed averaging over shuffles and strand,
+  absolute value, then the replicate mean.
+
+  linder2025-borzoi-ism-flowfish-plus differs from this file only in the screen
+  and this file's extra minimum-elements-per-gene filter.
+
+cell_type: k562
+strand_mask: auto
+bin_overlap: any
+abs_map: true
+tta_shift_bp: null
+model: borzoi
+replicates: 4
+anchor: gene-midpoint
+tss_major: false
+tss_major_assay: null
+assay: rnaseq
+region: exons
+tss_width: null
+readout_anchor: window-centre
+track_agg: mean
+inverse_transform: true
+log_scalar: true
+anchor_agg: null
+screen: gasperini2019-linder-authors
+pair_filters: {}
+method: ism
+enh_agg: point
+enh_span: null
+normalise: none
+ism_window: 2048            # The released code lesions 2,049 bp here, this
+                            # pipeline exactly 2,048: a known 1 bp deviation.
+ism_mode: dinuc-shuffle
+ism_shuffles: 16
+ism_statistic: abs_mean_diff
+ism_inner_mean: [strand]
+tta: rc
+
+tss_major_cell_type: null
+bin_abs_order: after
+track_abs_order: after
+tta_abs_order: before
+replicate_abs_order: before
+# tta_abs_order: ism_inner_mean already does the signed averaging over
+#   orientations on the ISM path, and the two mechanisms cannot both be set,
+#   so `before` is forced here.
+
+# The authors' own table and annotation. This file differs from the same
+# protocol on the reconstructed `gasperini2019-linder` table in these four keys and nothing else:
+#   screen        the pair table as supplied, loaded as shipped;
+#   pair_filters  {}: the supplied table is already capped at 262,144 bp and
+#                 already carries the paper's minimum-elements rule, so
+#                 re-applying either would drop pairs the authors scored;
+#   gencode       linder2025, the gene annotation supplied with the tables;
+#   exon_source   all-transcripts of that annotation, which is how the
+#                 authors' gradient script reads it.
+gencode: linder2025
+exon_source: all-transcripts
+
+seed: 0

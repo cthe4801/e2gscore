@@ -1,0 +1,47 @@
+_name: avsec2021-enformer-gradient-agnostic-gasperini2019
+_protocol: avsec2021
+_comment: >-
+  Avsec 2021 Extended Data Fig 7c, cell-type-agnostic gradient arm on
+  gasperini2019.
+
+  Major TSS by argmax predicted K562 CAGE; 3 bins at the TSS; sum of absolute
+  scores in a 2 kb window at the enhancer; no logarithm and no normaliser.
+
+  Differs from the cell-type-specific gradient arm only in the differentiated
+  scalar, which sums all 638 CAGE targets rather than the two K562 ones.
+
+model: enformer
+replicates: 1
+anchor: single-tss
+tss_major: true
+tss_major_assay: cage
+tss_major_cell_type: k562   # the anchor is held fixed while the readout
+                            # widens: the major TSS is still the argmax of
+                            # predicted K562 CAGE, not of all 638 tracks.
+pair_filters: {}
+inverse_transform: false
+assay: cage
+cell_type: all
+strand_mask: auto
+region: tss
+tss_width: 384
+readout_anchor: window-centre   # gene-tss would read at the annotated TSS
+                                # rather than the major TSS chosen above.
+bin_overlap: any
+track_agg: sum
+log_scalar: false
+abs_map: true
+normalise: none
+tta: none
+tta_shift_bp: null
+screen: gasperini2019
+method: gradient
+enh_agg: sum
+enh_span: 2000
+
+bin_abs_order: after
+track_abs_order: after
+tta_abs_order: before
+replicate_abs_order: before
+
+seed: 0

@@ -1,0 +1,51 @@
+_name: avsec2026-alphagenome-ism-gschwind
+_protocol: avsec2026
+_comment: >-
+  Avsec 2026 Extended Data Fig 7a, the AlphaGenome variant-effect bar, scored
+  on the gschwind K562 CRISPRi screen.
+
+  Same anchor, readout and cohort as the gradient sibling, but the attribution
+  is a perturbation: the 2 kb interval at the enhancer is shuffled 10 times and
+  the mean change in the readout is taken, absolute value last.
+
+  The paper says only that the interval is "permuted". Reading that as a
+  mononucleotide shuffle is an inference, not a stated method.
+
+screen: gschwind
+anchor: gene-midpoint
+tss_major: false
+tss_major_assay: null
+pair_filters: {require_gene_in_annotation: True}
+assay: rnaseq
+cell_type: k562
+strand_mask: auto
+region: exons
+tss_width: null
+readout_anchor: window-centre   # inert: region=exons selects the readout bins
+bin_overlap: any
+track_agg: mean
+log_scalar: true
+abs_map: true
+anchor_agg: null
+tta_shift_bp: null
+model: alphagenome
+replicates: 1
+inverse_transform: false
+method: ism
+enh_agg: point
+enh_span: null
+normalise: none
+ism_window: 2000
+ism_mode: mononuc-shuffle
+ism_shuffles: 10
+ism_statistic: abs_mean_diff
+ism_inner_mean: []
+tta: none
+
+tss_major_cell_type: null
+bin_abs_order: after
+track_abs_order: after
+tta_abs_order: before
+replicate_abs_order: before
+
+seed: 0

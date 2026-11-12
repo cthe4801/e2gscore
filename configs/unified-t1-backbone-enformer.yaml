@@ -1,0 +1,76 @@
+_name: unified-t1-backbone-enformer
+_protocol: unified-t1
+_comment: >-
+  Enformer arm of the unified tier-1 protocol, scored on the Gschwind K562
+  CRISPRi screen. This is the reference configuration for the paper's
+  cross-trunk protocol comparison.
+
+  An enhancer's score is the Enformer input gradient of K562 CAGE summed over
+  the three 384 bp output bins at the gene's canonical TSS, pooled over the
+  enhancer with a Gaussian (s.d. 300 bp, truncate 4) and divided by the mean
+  absolute gradient over the input window, with out-of-window enhancers
+  scored zero and no test-time augmentation.
+
+  Every other tier-1 arm is this file with exactly one parameter changed,
+  never a factorial, so diffing a sibling against this file names the axis
+  that sibling tests. Enformer's 196,608 bp input reaches the fewest pairs of
+  the three trunks, so this arm also fixes the common support on which the
+  trunks are compared.
+
+
+model: enformer
+replicates: 1
+replicate_abs_order: before       # inert at replicates=1
+
+screen: gschwind
+anchor: single-tss
+tss_major: false                  # Canonical TSS. `true` would anchor on the
+                                  # argmax of the model's own predicted
+                                  # CAGE, letting it pick its own readout.
+tss_major_assay: null
+tss_major_cell_type: null
+pair_filters: {require_gene_in_annotation: True}
+
+assay: cage                       # Enformer has no RNA-seq head, so CAGE is
+                                  # the only assay all three trunks share.
+cell_type: k562
+strand_mask: auto
+region: tss
+tss_width: 384                    # three 128 bp output bins; the 640 bp
+                                  # alternative costs another pass.
+readout_anchor: window-centre
+bin_overlap: any
+track_agg: mean                   # inert under normalise=global: a constant
+                                  # track-count factor divides out.
+log_scalar: false                 # inert for gradients under normalise=global
+                                  # (the two agree to 9e-16), and it avoids
+                                  # the warning that `true` with
+                                  # inverse_transform=false raises on a
+                                  # squashed output scalar.
+inverse_transform: false
+
+method: gradient
+bin_abs_order: after
+track_abs_order: after            # `before` is accepted only on the ISM path.
+
+abs_map: true
+enh_agg: gaussian                 # `sum` is recoverable from the same maps.
+enh_span: null                    # forced null unless enh_agg is sum/mean/max.
+gaussian_sigma: 300
+gaussian_truncate: 4
+normalise: global                 # held common across trunks. Enformer's own
+                                  # published reading is `none`, recoverable
+                                  # from the same maps.
+anchor_agg: null                  # forced null: single-tss gives one anchor.
+
+tta: none
+tta_shift_bp: null
+tta_abs_order: before             # inert at tta=none
+
+ism_window: 2000
+ism_mode: dinuc-shuffle
+ism_shuffles: 10
+ism_statistic: abs_mean_diff
+ism_inner_mean: []
+
+seed: 0

@@ -1,0 +1,49 @@
+_name: avsec2026-alphagenome-gradient-gschwind
+_protocol: avsec2026
+_comment: >-
+  Avsec 2026 Extended Data Fig 7a, the AlphaGenome input-gradient bar, scored
+  on the gschwind K562 CRISPRi screen.
+
+  Gene-midpoint anchor, K562 RNA-seq summed over the gene's exon bins with the
+  log applied last, enhancer attribution pooled under a Gaussian of s.d. 300 bp
+  truncated at 4 s.d., divided by the mean absolute gradient over the whole
+  input.
+
+  The sibling ISM arm replaces the gradient with a shuffle-and-rescore
+  perturbation; the Borzoi arms replace the trunk.
+
+screen: gschwind
+anchor: gene-midpoint
+tss_major: false
+tss_major_assay: null
+pair_filters: {require_gene_in_annotation: True}
+assay: rnaseq
+cell_type: k562
+strand_mask: auto
+region: exons
+tss_width: null
+readout_anchor: window-centre   # inert: region=exons selects the readout bins
+bin_overlap: any
+track_agg: mean
+log_scalar: true
+abs_map: true
+anchor_agg: null
+tta_shift_bp: null
+model: alphagenome
+replicates: 1
+inverse_transform: false
+method: gradient
+enh_agg: gaussian
+enh_span: null
+gaussian_sigma: 300
+gaussian_truncate: 4
+normalise: global
+tta: none
+
+tss_major_cell_type: null
+bin_abs_order: after
+track_abs_order: after
+tta_abs_order: before
+replicate_abs_order: before
+
+seed: 0

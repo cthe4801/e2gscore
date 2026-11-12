@@ -1,0 +1,59 @@
+_name: avsec2021-enformer-ism-agnostic-gasperini2019
+_protocol: avsec2021
+_comment: >-
+  Avsec 2021 Extended Data Fig 7c, cell-type-agnostic column: the ISM arm
+  scored on the gasperini2019 CRISPRi screen.
+
+  Major TSS by argmax predicted K562 CAGE; 3 bins at the TSS; sum of
+  absolute scores in a 2 kb window at the enhancer; no logarithm and no
+  normaliser.
+
+  The only difference from the Fig 2b K562 config is the readout, which
+  widens from the two K562 CAGE tracks to all 638 CAGE outputs.
+
+model: enformer
+replicates: 1
+anchor: single-tss
+tss_major: true
+tss_major_assay: cage
+tss_major_cell_type: k562   # Deliberately not `all`: only the readout goes
+                            # cell-type-agnostic. The TSS is still picked by
+                            # argmax of predicted K562 CAGE, so the anchor is
+                            # held fixed while the readout widens.
+pair_filters: {}
+inverse_transform: false
+assay: cage
+cell_type: all
+strand_mask: auto
+region: tss
+tss_width: 384
+readout_anchor: window-centre
+bin_overlap: any
+track_agg: sum
+log_scalar: false
+abs_map: true
+normalise: none
+tta: none
+tta_shift_bp: null
+screen: gasperini2019
+method: ism
+enh_agg: point
+enh_span: null
+ism_window: 2000
+ism_mode: random-replace     # "Replaced by a random sequence" is read
+                             # literally: random BASES, so the substituted
+                             # region is still a valid one-hot. The competing
+                             # reading, random-probs, draws random VALUES per
+                             # channel; it is favoured by fulco2019 and
+                             # disfavoured by gasperini2019, so the choice
+                             # cannot be settled on one screen alone.
+ism_shuffles: 1
+ism_statistic: abs_mean_diff
+ism_inner_mean: []
+
+bin_abs_order: after
+track_abs_order: after
+tta_abs_order: before
+replicate_abs_order: before
+
+seed: 0

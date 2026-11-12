@@ -1,0 +1,24 @@
+# AlphaGenome backend: scoring from sequence. Needs Python 3.12 or newer; tested on Python 3.12 with CUDA 12.4.
+#   python3.12 -m venv .venv-alphagenome
+#   .venv-alphagenome/bin/pip install -r requirements-alphagenome.txt
+#
+# Keep this environment SEPARATE from the other two.
+#
+# WEIGHTS ARE NOT AUTOMATIC for this backend, unlike Enformer and Borzoi.
+# The reported numbers were produced with a PyTorch checkpoint converted from
+# DeepMind's official AlphaGenome JAX/Orbax release by this port's own converter:
+#
+#     agt convert --input <alphagenome-all-folds> --output alphagenome.pth
+#
+# Point the backend at the result:
+#     export ALPHAGENOME_PT_WEIGHTS=/path/to/alphagenome.pth
+#
+# A third-party HuggingFace mirror of AlphaGenome-PyTorch weights exists. It was
+# deliberately NOT used here: the numerical agreement reported for this backend
+# (2e-4 relative against the JAX reference) was established only against the
+# conversion above, so a mirror is untested for these results.
+numpy>=1.17
+PyYAML>=5.1
+pyfaidx>=0.8.1
+torch==2.6.0
+alphagenome_pytorch @ git+https://github.com/genomicsxai/alphagenome-pytorch.git@473d3d226b3a0aec754fb47cb6fcab1028829435

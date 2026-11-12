@@ -1,0 +1,17 @@
+# Borzoi backend: scoring from sequence. Tested on Python 3.9.
+#   python3.9 -m venv .venv-borzoi
+#   .venv-borzoi/bin/pip install -r requirements-borzoi.txt
+#
+# Keep this environment SEPARATE from the Enformer one; see the note in
+# requirements-enformer.txt for the transformers version conflict.
+#
+# Weights download automatically from the HuggingFace Hub
+# (johahi/borzoi-replicate-0 through -3). No manual step.
+numpy>=1.17
+PyYAML>=5.1
+pyfaidx>=0.8.1
+torch==2.7.1
+borzoi-pytorch==0.5.1
+transformers==4.57.6
+huggingface_hub==0.36.2
+einops==0.8.2

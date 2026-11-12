@@ -1,0 +1,99 @@
+{
+ "name": "unified-t1-S2n-borzoi-single-tss-logscalar-none-rafter",
+ "overrides": [],
+ "config": {
+  "abs_map": true,
+  "anchor": "single-tss",
+  "anchor_agg": null,
+  "assay": "cage",
+  "bin_abs_order": "after",
+  "bin_overlap": "any",
+  "cell_type": "k562",
+  "enh_agg": "gaussian",
+  "enh_span": null,
+  "exon_source": "all-transcripts",
+  "gaussian_sigma": 300,
+  "gaussian_truncate": 4,
+  "gencode": "v50",
+  "inverse_transform": true,
+  "ism_inner_mean": [],
+  "ism_mode": "dinuc-shuffle",
+  "ism_shuffles": 10,
+  "ism_statistic": "abs_mean_diff",
+  "ism_window": 2000,
+  "log_scalar": true,
+  "mean_subtract": true,
+  "method": "gradient",
+  "model": "borzoi",
+  "normalise": "none",
+  "out_of_window": "zero",
+  "pair_filters": {
+   "require_gene_in_annotation": true
+  },
+  "readout_anchor": "window-centre",
+  "region": "tss",
+  "replicate_abs_order": "after",
+  "replicates": 4,
+  "screen": "gschwind",
+  "seed": 0,
+  "strand_mask": "auto",
+  "track_abs_order": "after",
+  "track_agg": "mean",
+  "tss_major": false,
+  "tss_major_assay": null,
+  "tss_major_cell_type": null,
+  "tss_width": 384,
+  "tta": "none",
+  "tta_abs_order": "before",
+  "tta_shift_bp": null
+ },
+ "runtime": {
+  "backend": "borzoi-pytorch",
+  "frame_guard": {
+   "agreement": {
+    "status": "inactive",
+    "why": "no rc augmentation"
+   },
+   "augmentations": [
+    "shift=0,rc=True",
+    "shift=32,rc=False",
+    "shift=-64,rc=False",
+    "shift=32,rc=True",
+    "shift=-96,rc=True"
+   ],
+   "checks": 50,
+   "geometry": {
+    "bin_size": 32,
+    "crop_bins": 16,
+    "n_bins": 16352,
+    "seq_len": 524288
+   },
+   "method": "gradient",
+   "model": "borzoi",
+   "readout": {
+    "assay": "cage",
+    "cell_type": "k562",
+    "region": "tss",
+    "strands": [
+     "+",
+     "-"
+    ]
+   },
+   "status": "passed",
+   "teeth": "reading the forward frame on the rc pass changes the probe readout"
+  },
+  "precision": {
+   "cudnn_allow_tf32_default": true,
+   "gpu_capability": "7.5",
+   "gpu_name": "Quadro RTX 4000",
+   "matmul_allow_tf32_default": false,
+   "tf32_capable": false,
+   "tf32_pinned_off": true
+  },
+  "device": "cuda"
+ },
+ "table": {
+  "pairs": 10353,
+  "pairs_in_window": 3988
+ }
+}

@@ -1,0 +1,70 @@
+{
+ "name": "unified-t1-backbone-alphagenome",
+ "overrides": [
+  "cell_type=rand1-s0"
+ ],
+ "config": {
+  "abs_map": true,
+  "anchor": "single-tss",
+  "anchor_agg": null,
+  "assay": "cage",
+  "bin_abs_order": "after",
+  "bin_overlap": "any",
+  "cell_type": "rand1-s0",
+  "enh_agg": "gaussian",
+  "enh_span": null,
+  "exon_source": "all-transcripts",
+  "gaussian_sigma": 300,
+  "gaussian_truncate": 4,
+  "gencode": "v50",
+  "inverse_transform": false,
+  "ism_inner_mean": [],
+  "ism_mode": "dinuc-shuffle",
+  "ism_shuffles": 10,
+  "ism_statistic": "abs_mean_diff",
+  "ism_window": 2000,
+  "log_scalar": false,
+  "mean_subtract": true,
+  "method": "gradient",
+  "model": "alphagenome",
+  "normalise": "global",
+  "out_of_window": "zero",
+  "pair_filters": {
+   "require_gene_in_annotation": true
+  },
+  "readout_anchor": "window-centre",
+  "region": "tss",
+  "replicate_abs_order": "before",
+  "replicates": 1,
+  "screen": "gschwind",
+  "seed": 0,
+  "strand_mask": "auto",
+  "track_abs_order": "after",
+  "track_agg": "mean",
+  "tss_major": false,
+  "tss_major_assay": null,
+  "tss_major_cell_type": null,
+  "tss_width": 384,
+  "tta": "none",
+  "tta_abs_order": "before",
+  "tta_shift_bp": null
+ },
+ "runtime": {
+  "backend": "alphagenome-pytorch",
+  "precision": "fp32",
+  "head": "cage",
+  "absolute_tracks": [
+   15,
+   288
+  ],
+  "positional_tracks": [
+   0,
+   1
+  ],
+  "device": "cuda"
+ },
+ "table": {
+  "pairs": 10353,
+  "pairs_in_window": 6677
+ }
+}

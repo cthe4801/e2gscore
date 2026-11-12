@@ -1,0 +1,124 @@
+{
+ "_source": "Avsec et al. 2026 (AlphaGenome), Nature 649:1211. Read from the published figures. Unlike Linder 2025 there are no executed notebooks to read exact values from: google-deepmind/alphagenome and the alphagenome_research repo contain no CRISPRi / enhancer-gene code at all, so the figures are the only record.",
+ "_cohort": {
+  "pairs_before_v46_filter": 10356,
+  "pairs": 10353,
+  "positives": 471,
+  "quote": "We followed the authors' approach of filtering for genes present in their annotations, resulting in 471 positives and 10356 pairs in total. We needed to also drop 3 additional element-gene pairs whose gene ids were not present in our annotation file (GENCODE v46), resulting in a final dataset of 471 positives and 10353 examples in total.",
+  "printed_in": "Extended Data Fig. 7b and 7c panel titles: 'All | # EG = 10353 | # Positives = 471'"
+ },
+ "_bins": {
+  "labels": [
+   "All",
+   "0-10 kb",
+   "10-100 kb",
+   "100-2500 kb"
+  ],
+  "edges_bp": [
+   0,
+   10000,
+   100000,
+   2500000
+  ],
+  "note": "Fig 4j x-axis. The supplement says the bins are 'borrowed' from the ENCODE-rE2G paper and that 'We used the TSS annotations provided by ENCODE-rE2G for binning the elements.'"
+ },
+ "fig4j_zeroshot": {
+  "_what": "Fig 4j, left panel. Printed value labels above each bar, 2 dp. These are the paper's stated numbers and are what the reproduction is scored against.",
+  "AlphaGenome": {
+   "All": 0.75,
+   "0-10 kb": 0.91,
+   "10-100 kb": 0.8,
+   "100-2500 kb": 0.35
+  },
+  "Borzoi (ensemble)": {
+   "All": 0.67,
+   "0-10 kb": 0.88,
+   "10-100 kb": 0.69,
+   "100-2500 kb": 0.24
+  },
+  "1/TSS distance": {
+   "All": 0.43,
+   "0-10 kb": 0.7,
+   "10-100 kb": 0.29,
+   "100-2500 kb": 0.03
+  }
+ },
+ "fig4j_zeroshot_measured_bar_heights": {
+  "_what": "The same twelve bars, measured off the vector PDF at 1200 dpi against the y-axis tick marks (ticks land at 1.00/0.75/0.50/0.25/0 with 953 px per unit; bar edges are hard, un-antialiased, so the read is good to about 0.001).",
+  "_caveat": "These do NOT equal the printed labels: every bar is drawn 0.005-0.038 BELOW its own label. The labels are corroborated by a second figure (ED Fig 7a prints 0.749 and 0.668 for the two 'All' model bars, matching the labels 0.75 and 0.67 and not the bars 0.7324 and 0.6537), so the labels are treated as the paper's values and the bar geometry is recorded here only so the discrepancy is on the record rather than mistaken for a reproduction error.",
+  "AlphaGenome": {
+   "All": 0.7324,
+   "0-10 kb": 0.8888,
+   "10-100 kb": 0.7618,
+   "100-2500 kb": 0.3389
+  },
+  "Borzoi (ensemble)": {
+   "All": 0.6537,
+   "0-10 kb": 0.8636,
+   "10-100 kb": 0.6747,
+   "100-2500 kb": 0.2319
+  },
+  "1/TSS distance": {
+   "All": 0.4239,
+   "0-10 kb": 0.6884,
+   "10-100 kb": 0.2844,
+   "100-2500 kb": 0.0252
+  },
+  "random_dashed_line": {
+   "10-100 kb": 0.1616,
+   "_note": "the dashed per-bin random baseline, i.e. the positive rate; only the 10-100 kb line could be read unambiguously (the others are overdrawn by bars). It implies 0.1616 against a cohort value of 256/1597 = 0.1603, which is what calibrates the axis read."
+  }
+ },
+ "ed_fig7a": {
+  "_what": "Extended Data Fig. 7a, 'Zero shot evaluation', All-pairs auPRC printed to 3 dp above each bar. Raster panel, but the numbers are printed.",
+  "input x gradient": {
+   "AlphaGenome": 0.749,
+   "Borzoi": 0.668
+  },
+  "RNA-seq scorer": {
+   "AlphaGenome": 0.733,
+   "Borzoi": 0.501
+  }
+ },
+ "ed_fig7d": {
+  "_what": "Extended Data Fig. 7d, the 'Observed' (grey) trend line: a linear fit of log10(percent change in expression on enhancer knockdown) against log10(enhancer-TSS distance), over the validated (positive) pairs. Raster panel with no printed numbers, so the line was traced pixel-wise at 700 dpi and converted through the log axes.",
+  "_calibration": "y major ticks 100/10/1/0.1 at 195.0/717.5/1240.5/1763.0 px (522.5 px per decade); x major ticks 1e3/1e4/1e5 at 361.5/1123.0/1884.5 px (761.5 px per decade). Both verified against the log-minor tick positions, which land where the calibration predicts.",
+  "observed_line": {
+   "slope": -0.1003,
+   "pct_at_1e3": 15.57,
+   "pct_at_1e4": 12.36,
+   "pct_at_1e5": 9.81,
+   "pct_at_3e5": 8.79
+  },
+  "alphagenome_line": {
+   "slope": -0.2312,
+   "pct_at_1e3": 13.93,
+   "pct_at_1e4": 8.18,
+   "_caveat": "traced over a shorter span (the blue scatter points share its colour), so less reliable than the grey line"
+  },
+  "panel_x_range_bp": [
+   975,
+   436701
+  ],
+  "_why_it_matters": "A second model-free instrument, independent of the auPRC bars: it uses the EFFECT SIZES of the POSITIVE subset and their distances, which no auPRC constrains directly. It confirms the label set (which 471 pairs), the effect-size column, and the distance column at once."
+ },
+ "ed_fig7bc": {
+  "_what": "Extended Data Fig. 7b/7c legends, supervised logistic regression on the same 10,353 pairs, out-of-fold, auPRC to 4 dp. Not reproducible from this algorithm (they are ENCODE-rE2G regressions that CONSUME a model score as a feature) but the two model-free-ish rows are useful cross-checks.",
+  "7b": {
+   "rE2G extended with AlphaGenome features": 0.781,
+   "AlphaGenome features only": 0.7471,
+   "TSS distance with AlphaGenome features": 0.7453,
+   "rE2G extended": 0.76,
+   "ABC features only": 0.6191,
+   "TSS distance": 0.4247
+  },
+  "7c": {
+   "rE2G extended with AlphaGenome features": 0.7841,
+   "AlphaGenome features only": 0.7446,
+   "TSS distance with AlphaGenome features": 0.759,
+   "rE2G extended": 0.76,
+   "ABC features only": 0.6191,
+   "TSS distance": 0.4247
+  }
+ }
+}

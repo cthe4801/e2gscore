@@ -1,0 +1,221 @@
+{
+ "annotation": {
+  "genes": 4796,
+  "merged_exon_intervals": 57634,
+  "non_basic_transcripts": 0,
+  "transcripts": 16713,
+  "version": "linder2025"
+ },
+ "screens": {
+  "flowfish-plus-authors": {
+   "chromosome_overrides": {},
+   "cohort_bin_pairs": [
+    144,
+    277,
+    500,
+    1220
+   ],
+   "cohort_bin_positives": [
+    47,
+    43,
+    14,
+    12
+   ],
+   "cohort_check": {
+    "bins": [
+     {
+      "label": "<15K",
+      "n": 144,
+      "paper_n": 144,
+      "paper_pos": 47,
+      "paper_tss_ap": 0.561,
+      "paper_tss_auc": 0.7594,
+      "positives": 47,
+      "tss_ap": 0.561,
+      "tss_auc": 0.7594
+     },
+     {
+      "label": "15K-45K",
+      "n": 277,
+      "paper_n": 277,
+      "paper_pos": 43,
+      "paper_tss_ap": 0.2351,
+      "paper_tss_auc": 0.6591,
+      "positives": 43,
+      "tss_ap": 0.2351,
+      "tss_auc": 0.6591
+     },
+     {
+      "label": "45K-98K",
+      "n": 500,
+      "paper_n": 500,
+      "paper_pos": 14,
+      "paper_tss_ap": 0.0402,
+      "paper_tss_auc": 0.4974,
+      "positives": 14,
+      "tss_ap": 0.0402,
+      "tss_auc": 0.4974
+     },
+     {
+      "label": "98K-262K",
+      "n": 1220,
+      "paper_n": 1220,
+      "paper_pos": 12,
+      "paper_tss_ap": 0.0096,
+      "paper_tss_auc": 0.4259,
+      "positives": 12,
+      "tss_ap": 0.0096,
+      "tss_auc": 0.4259
+     }
+    ],
+    "cohort_rows": 2141
+   },
+   "cohort_key": "flowfish-plus",
+   "distance_rule": "tss_distance verbatim",
+   "duplicate_rows": 0,
+   "duplicate_symbols": {},
+   "gene_id_rule": "symbol -> last gene_id in GTF file order (compute_scores_borzoi dict overwrite), restricted to the row's chromosome (pseudoautosomal _PAR_Y copies)",
+   "genes": 53,
+   "label_column": "regulate",
+   "label_rule": "regulate == True; nothing recomputed",
+   "min_elements_per_gene": null,
+   "path": "inputs/flowfish-plus-authors.hg38.tsv",
+   "positives": 117,
+   "rows": 2194,
+   "sha256_tsv": "9cce08e46321cdc7bc9e7b0c2acb1907bf81d0dd69cba799a81895cdf2caa93a",
+   "source_gtf": "flowfish_genes.gtf.gz",
+   "source_table": "flowfish_table.tsv.gz",
+   "tss_formula_matches": {
+    "mid=ceil,tss=0-based": 237,
+    "mid=floor+1,tss=0-based": 2194
+   },
+   "tss_gap_bp": {
+    "gate": 10,
+    "max": 1,
+    "median": 1,
+    "p99": 1
+   },
+   "tss_rule": "implied: enhancer_mid -/+ distance, sign toward the gene's annotated TSSs (0-based)"
+  },
+  "gasperini2019-linder-authors": {
+   "chromosome_overrides": {
+    "CD99: ENSG00000002586_PAR_Y -> ENSG00000002586": 2
+   },
+   "cohort_bin_pairs": [
+    1230,
+    2445,
+    4061,
+    10049
+   ],
+   "cohort_bin_positives": [
+    179,
+    103,
+    65,
+    45
+   ],
+   "cohort_check": {
+    "bins": [
+     {
+      "label": "<15K",
+      "n": 1230,
+      "paper_n": 1230,
+      "paper_pos": 179,
+      "paper_tss_ap": 0.4406,
+      "paper_tss_auc": 0.697,
+      "positives": 179,
+      "tss_ap": 0.4406,
+      "tss_auc": 0.697
+     },
+     {
+      "label": "15K-45K",
+      "n": 2445,
+      "paper_n": 2445,
+      "paper_pos": 103,
+      "paper_tss_ap": 0.0612,
+      "paper_tss_auc": 0.5338,
+      "positives": 103,
+      "tss_ap": 0.0612,
+      "tss_auc": 0.5338
+     },
+     {
+      "label": "45K-98K",
+      "n": 4061,
+      "paper_n": 4058,
+      "paper_pos": 65,
+      "paper_tss_ap": 0.0226,
+      "paper_tss_auc": 0.5789,
+      "positives": 65,
+      "tss_ap": 0.0226,
+      "tss_auc": 0.5792
+     },
+     {
+      "label": "98K-262K",
+      "n": 10049,
+      "paper_n": 10051,
+      "paper_pos": 45,
+      "paper_tss_ap": 0.0082,
+      "paper_tss_auc": 0.6568,
+      "positives": 45,
+      "tss_ap": 0.0082,
+      "tss_auc": 0.6567
+     }
+    ],
+    "cohort_rows": 17785
+   },
+   "cohort_key": "gasperini2019",
+   "distance_rule": "tss_distance verbatim",
+   "duplicate_rows": 6,
+   "duplicate_symbols": {
+    "CD99": [
+     "ENSG00000002586",
+     "ENSG00000002586_PAR_Y"
+    ],
+    "MATR3": [
+     "ENSG00000015479",
+     "ENSG00000280987"
+    ]
+   },
+   "gene_id_rule": "symbol -> last gene_id in GTF file order (compute_scores_borzoi dict overwrite), restricted to the row's chromosome (pseudoautosomal _PAR_Y copies)",
+   "genes": 4776,
+   "label_column": "regulate",
+   "label_rule": "regulate == True; nothing recomputed",
+   "min_elements_per_gene": null,
+   "path": "inputs/gasperini2019-linder-authors.hg38.tsv",
+   "positives": 404,
+   "rows": 19104,
+   "sha256_tsv": "01dc0203f490ce93f88dcd53bd5b892e4bf6c764d078c880858d3c05502ce019",
+   "source_gtf": "gasperini_genes.gtf.gz",
+   "source_table": "gasperini_table.tsv.gz",
+   "tss_formula_matches": {
+    "mid=ceil,tss=0-based": 4892,
+    "mid=floor+1,tss=0-based": 19104,
+    "mid=floor,tss=1-based": 1
+   },
+   "tss_gap_bp": {
+    "gate": 10,
+    "max": 1,
+    "median": 1,
+    "p99": 1
+   },
+   "tss_rule": "implied: enhancer_mid -/+ distance, sign toward the gene's annotated TSSs (0-based)"
+  }
+ },
+ "source": {
+  "flowfish_genes.gtf.gz": {
+   "path": "inputs/linder2025-authors/flowfish_genes.gtf.gz",
+   "sha256": "b86bcf8820fb48a13105fd7e17589d5cac3959386065b29d8e705c1b9e7c10f3"
+  },
+  "flowfish_table.tsv.gz": {
+   "path": "inputs/linder2025-authors/flowfish_table.tsv.gz",
+   "sha256": "6643e1c7bc3073ae57f8dfa1347ab252c3de111d44bb7955f28b56dc39d32152"
+  },
+  "gasperini_genes.gtf.gz": {
+   "path": "inputs/linder2025-authors/gasperini_genes.gtf.gz",
+   "sha256": "22adc0c252713f37ae3fdd3558e2df51429c29077486bb98995ee7fc1ef5aec5"
+  },
+  "gasperini_table.tsv.gz": {
+   "path": "inputs/linder2025-authors/gasperini_table.tsv.gz",
+   "sha256": "43a1632dbda5a07d276361e9820cd8c52af20047162b7c074eb29d816d15b726"
+  }
+ }
+}
